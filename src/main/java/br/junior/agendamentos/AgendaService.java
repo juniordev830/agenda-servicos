@@ -3,6 +3,7 @@ package br.junior.agendamentos;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class AgendaService {
     private final List<Agendamento> agendamentos = new ArrayList<>();
@@ -16,5 +17,10 @@ public final class AgendaService {
         agendamentos.add(novo);
         return novo;
     }
+    public boolean cancelar(Agendamento agendamento) {
+        Objects.requireNonNull(agendamento, "agendamento");
+        return agendamentos.remove(agendamento);
+    }
+
     public List<Agendamento> listar() { return List.copyOf(agendamentos); }
 }
