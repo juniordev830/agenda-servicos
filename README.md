@@ -1,36 +1,47 @@
 # Agenda Serviços
 
-Agendamento para profissionais com controle de conflitos de horário.
+Núcleo de agendamento em **Java 17**, com consulta de disponibilidade, prevenção de sobreposição e cancelamento.
 
-## Estado atual
+[![CI](https://github.com/juniordev830/agenda-servicos/actions/workflows/ci.yml/badge.svg)](https://github.com/juniordev830/agenda-servicos/actions)
 
-Projeto em planejamento. Este repositório contém a definição do projeto; ainda não há aplicação executável, interface ou testes implementados.
+## Regras implementadas
 
-## Tecnologias propostas
+| Caso | Resultado |
+| --- | --- |
+| Intervalos sobrepostos | Novo agendamento rejeitado |
+| Um horário termina quando outro começa | Ambos permitidos |
+| Fim igual ou anterior ao início | Entrada rejeitada |
+| Cliente vazio ou data ausente | Entrada rejeitada |
+| Cancelamento de registro existente | Remove somente o registro e libera o intervalo |
+| Cancelamento repetido ou inexistente | Retorna false e preserva os demais registros |
 
-Java, Spring Boot, React e PostgreSQL. A escolha será confirmada ao iniciar a implementação.
+Os intervalos seguem a convenção `[início, fim)`. O cancelamento usa a igualdade do record imutável `Agendamento` (cliente, início e fim), sem ID persistente.
 
-## Escopo da primeira versão
+## Exemplo de uso
 
-- [ ] Cadastrar serviços e duração
-- [ ] Consultar horários disponíveis
-- [ ] Criar e cancelar agendamentos sem sobreposição
+```java
+var agenda = new AgendaService();
+var inicio = LocalDateTime.of(2026, 11, 3, 9, 0);
+var reserva = agenda.agendar("Cliente fictício", inicio, inicio.plusHours(1));
+System.out.println(agenda.disponivel(inicio, inicio.plusHours(1))); // false
+agenda.cancelar(reserva);
+System.out.println(agenda.disponivel(inicio, inicio.plusHours(1))); // true
+```
 
-## Critérios para concluir a primeira versão
+Código: [serviço](src/main/java/br/junior/agendamentos/AgendaService.java) · [modelo](src/main/java/br/junior/agendamentos/Agendamento.java) · [testes](src/test/java/br/junior/agendamentos/AgendaServiceTest.java).
 
-- [ ] Implementar o fluxo principal com validação de entradas e tratamento de erros.
-- [ ] Documentar instalação, configuração e execução com comandos reproduzíveis.
-- [ ] Adicionar exemplos de uso, dados fictícios e capturas de tela quando houver interface.
-- [ ] Verificar os casos principais e limites e registrar os resultados.
+## Verificação
 
-## Desenvolvimento
+Requisitos: JDK 17 e Maven instalado. Na raiz:
 
-As funcionalidades acima são planejadas. Os comandos de instalação e a estrutura do código serão documentados junto da primeira implementação. Não há integrações externas ou serviços ativos nesta etapa.
+```sh
+mvn -B test
+```
 
-## Privacidade e configuração
+O CI executa testes de conflitos, horários adjacentes, cancelamento, preservação dos demais agendamentos e entradas inválidas. As consultas devolvem snapshots não modificáveis.
 
-Usar dados fictícios nos exemplos e manter senhas, tokens, arquivos pessoais e credenciais fora do controle de versão.
+## Estado e limites
 
-## Licença
+Biblioteca de domínio testável, sem API, interface, banco ou CLI. A agenda representa um único profissional/recurso e usa `LocalDateTime`, sem conversão de fuso horário. Os dados ficam em memória e o serviço é destinado a uso sequencial em um único processo. Ainda faltam catálogo de serviços/durações, identidade dos clientes, persistência e controle de concorrência.
 
-Ainda não definida.
+Os exemplos usam dados fictícios. Não versionar credenciais ou dados pessoais. Licença ainda não definida.
