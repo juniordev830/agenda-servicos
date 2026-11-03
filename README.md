@@ -13,7 +13,7 @@ Java 17 e Maven.
 ## Escopo da primeira versão
 
 - [ ] Cadastrar serviços e duração
-- [ ] Consultar horários disponíveis
+- [x] Consultar horários disponíveis
 - [ ] Criar e cancelar agendamentos sem sobreposição
 
 ## Critérios para concluir a primeira versão
