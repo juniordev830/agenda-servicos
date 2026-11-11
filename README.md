@@ -30,6 +30,15 @@ System.out.println(agenda.disponivel(inicio, inicio.plusHours(1))); // true
 
 Código: [serviço](src/main/java/br/junior/agendamentos/AgendaService.java) · [modelo](src/main/java/br/junior/agendamentos/Agendamento.java) · [testes](src/test/java/br/junior/agendamentos/AgendaServiceTest.java).
 
+## Consulta de agenda por dia
+
+`listarPorDia(LocalDate)` devolve um snapshot imutável ordenado por início.
+Inclui reservas que atravessam a meia-noite, respeitando intervalos `[início, fim)`.
+
+```java
+var reservas = agenda.listarPorDia(LocalDate.of(2026, 11, 3));
+```
+
 ## Verificação
 
 Requisitos: JDK 17 e Maven instalado. Na raiz:
