@@ -45,3 +45,7 @@ O CI executa testes de conflitos, horários adjacentes, cancelamento, preservaç
 Biblioteca de domínio testável, sem API, interface, banco ou CLI. A agenda representa um único profissional/recurso e usa `LocalDateTime`, sem conversão de fuso horário. Os dados ficam em memória e o serviço é destinado a uso sequencial em um único processo. Ainda faltam catálogo de serviços/durações, identidade dos clientes, persistência e controle de concorrência.
 
 Os exemplos usam dados fictícios. Não versionar credenciais ou dados pessoais. Licença ainda não definida.
+
+## Guia para contribuir
+
+Veja o [roteiro de testes e manutenção](docs/GUIA_DE_VALIDACAO.md) para validar mudanças com comandos e cenários específicos deste projeto.
