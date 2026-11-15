@@ -60,10 +60,9 @@ class AgendaServiceTest {
         var cedo = agenda.agendar("A", dia.atTime(9, 0), dia.atTime(10, 0));
         var noite = agenda.agendar("B", dia.atTime(23, 30), dia.plusDays(1).atTime(0, 30));
         var anterior = agenda.agendar("C", dia.minusDays(1).atTime(23, 30), dia.atTime(0, 30));
-        agenda.agendar("D", dia.plusDays(1).atTime(1, 0), dia.plusDays(1).atTime(2, 0));
+        var noDiaSeguinte = agenda.agendar("D", dia.plusDays(1).atTime(1, 0), dia.plusDays(1).atTime(2, 0));
         assertEquals(java.util.List.of(anterior, cedo, noite), agenda.listarPorDia(dia));
-        assertEquals(java.util.List.of(noite), agenda.listarPorDia(dia.plusDays(1)).stream()
-                .filter(a -> a.equals(noite)).toList());
+        assertEquals(java.util.List.of(noite, noDiaSeguinte), agenda.listarPorDia(dia.plusDays(1)));
     }
 
     @Test void listaPorDiaRetornaSnapshotImutavelEValidaDia() {
