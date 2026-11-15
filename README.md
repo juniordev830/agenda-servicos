@@ -34,6 +34,15 @@ System.out.println(RelatoriosAgenda.ics(agenda.listar(), "Agenda"));
 
 Imports necessários: `br.junior.agendamentos.*`, `java.time.*`.
 
+## Consulta de agenda por dia
+
+`listarPorDia(LocalDate)` devolve um snapshot imutável ordenado por início.
+Inclui reservas que atravessam a meia-noite, respeitando intervalos `[início, fim)`.
+
+```java
+var reservas = agenda.listarPorDia(LocalDate.of(2026, 11, 3));
+```
+
 ## Testes e CI
 
 ```sh
@@ -52,3 +61,7 @@ O projeto usa JUnit 5 e GitHub Actions. Os testes cobrem validações, conflitos
 6. O CSV exportado é para planilhas; não é um formato de backup/importação. Evite exportar dados pessoais sem base legal e controle de acesso.
 
 O módulo original de agendamento simples continua em `AgendaService` e `Agendamento`, sem mudança de comportamento. Todos os exemplos usam dados fictícios.
+
+## Guia para contribuir
+
+Veja o [roteiro de testes e manutenção](docs/GUIA_DE_VALIDACAO.md) para validar mudanças com comandos e cenários específicos deste projeto.
