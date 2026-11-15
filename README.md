@@ -30,6 +30,15 @@ System.out.println(agenda.disponivel(inicio, inicio.plusHours(1))); // true
 
 Código: [serviço](src/main/java/br/junior/agendamentos/AgendaService.java) · [modelo](src/main/java/br/junior/agendamentos/Agendamento.java) · [testes](src/test/java/br/junior/agendamentos/AgendaServiceTest.java).
 
+## Consulta de agenda por dia
+
+`listarPorDia(LocalDate)` devolve um snapshot imutável ordenado por início.
+Inclui reservas que atravessam a meia-noite, respeitando intervalos `[início, fim)`.
+
+```java
+var reservas = agenda.listarPorDia(LocalDate.of(2026, 11, 3));
+```
+
 ## Verificação
 
 Requisitos: JDK 17 e Maven instalado. Na raiz:
@@ -42,7 +51,7 @@ O CI executa testes de conflitos, horários adjacentes, cancelamento, preservaç
 
 ## Estado e limites
 
-Biblioteca de domínio testável, sem API, interface, banco ou CLI. A agenda representa um único profissional/recurso e usa `LocalDateTime`, sem conversão de fuso horário. Os dados ficam em memória e o serviço é destinado a uso sequencial em um único processo. Ainda faltam catálogo de serviços/durações, identidade dos clientes, persistência e controle de concorrência.
+Biblioteca de domínio testável, sem API, interface, banco ou CLI. A agenda representa um único profissional/recurso e usa `LocalDateTime`, sem conversão de fuso horário. Os dados ficam em memória. A mesma instância da agenda pode receber consultas e reservas concorrentes. Ainda faltam catálogo de serviços/durações, identidade dos clientes e persistência.
 
 Os exemplos usam dados fictícios. Não versionar credenciais ou dados pessoais. Licença ainda não definida.
 

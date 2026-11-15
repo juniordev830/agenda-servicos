@@ -1,7 +1,9 @@
 package br.junior.agendamentos;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,4 +25,15 @@ public final class AgendaService {
     }
 
     public synchronized List<Agendamento> listar() { return List.copyOf(agendamentos); }
+
+    /** Retorna os agendamentos que se sobrepõem ao dia informado, em ordem de início. */
+    public List<Agendamento> listarPorDia(LocalDate dia) {
+        Objects.requireNonNull(dia, "dia");
+        LocalDateTime inicio = dia.atStartOfDay();
+        LocalDateTime fim = dia.plusDays(1).atStartOfDay();
+        return listar().stream()
+                .filter(a -> a.inicio().isBefore(fim) && inicio.isBefore(a.fim()))
+                .sorted(Comparator.comparing(Agendamento::inicio))
+                .toList();
+    }
 }
