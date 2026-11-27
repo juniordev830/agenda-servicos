@@ -1,0 +1,21 @@
+name: Revisão de dependências
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/**"
+      - "pom.xml"
+
+permissions:
+  contents: read
+
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Verificar vulnerabilidades introduzidas pelo PR
+        uses: actions/dependency-review-action@bbc44d14a204704ccc493733616cd1e93a0321ec # v5.0.1
+        with:
+          fail-on-severity: high
+          license-check: false
