@@ -1,5 +1,7 @@
 # Agenda Serviços
 
+**Navegação** · [Funcionalidades](#funcionalidades) · [Exemplo](#exemplo) · [Consulta de agenda por dia](#consulta-de-agenda-por-dia) · [Código e estudo](docs/ENGENHARIA_REVERSA.md)
+
 Biblioteca de domínio em **Java 17**, sem dependências de produção, para agendamentos de serviços. O módulo original `AgendaService` continua disponível e mantém a mesma API; a expansão adiciona recursos independentes para catálogos, múltiplos profissionais e relatórios.
 
 [![CI](https://github.com/juniordev830/agenda-servicos/actions/workflows/ci.yml/badge.svg)](https://github.com/juniordev830/agenda-servicos/actions)
@@ -65,3 +67,9 @@ O módulo original de agendamento simples continua em `AgendaService` e `Agendam
 ## Guia para contribuir
 
 Veja o [roteiro de testes e manutenção](docs/GUIA_DE_VALIDACAO.md) para validar mudanças com comandos e cenários específicos deste projeto.
+
+## Código e roteiro de estudo
+
+Quais casos de borda exercitam sobreposição, adjacência e cancelamento de horários? O [guia de engenharia reversa](docs/ENGENHARIA_REVERSA.md) reúne o mapa dos módulos e uma pergunta técnica baseada no projeto.
+
+Mantido por [João Junior](https://github.com/juniordev830).
